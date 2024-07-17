@@ -10,7 +10,7 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.feature', // Ensure this path is correct
         supportFile: 'cypress/support/index.js', // Ensure this path is correct
         baseUrl: 'https://www.automationexercise.com', // Replace with the URL of your website
-        viewportHeight: 1920,
+        viewportHeight: 1000,
         viewportWidth: 1080,
     },
 });
