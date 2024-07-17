@@ -7,8 +7,10 @@ module.exports = defineConfig({
             on('file:preprocessor', cucumber());
             return config;
         },
-        specPattern: 'cypress/e2e/**/*.feature', // Ensure this path is correct
+        specPattern: 'cypress/integration/**/*.feature', // Ensure this path is correct
         supportFile: 'cypress/support/index.js', // Ensure this path is correct
         baseUrl: 'https://www.automationexercise.com', // Replace with the URL of your website
+        viewportHeight: 1920,
+        viewportWidth: 1080,
     },
 });
