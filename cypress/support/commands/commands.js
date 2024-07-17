@@ -6,6 +6,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             email: faker.internet.email(),
+            gender: faker.random.arrayElement(['Mr.', 'Mrs.']),
         }
 
         // Append new data to the existing data
