@@ -73,5 +73,39 @@ When('I fill out the sign up form with valid data', () => {
             //Wrap the select element with Cypress and select the random option by its value
             cy.wrap(select).select(yearRandomValue)
         })
+
+        cy.get('#newsletter').each(($checkbox) => {
+            //Generate a randomBoolean
+            const randomBoolean = Math.random() >= 0.5;
+            if (randomBoolean) {
+                //Check the checkbox if it's not already checked
+                cy.wrap($checkbox).check();
+            } else {
+                //Uncheck the checkbox if it's already uncheck
+                cy.wrap($checkbox).uncheck();
+            }
+        })
+        cy.get('#newsletter').each(($checkbox) => {
+            const isChecked = $checkbox.prop('checked');
+            cy.wrap($checkbox).should(isChecked ? 'be.checked' : 'not.be.checked');
+        })
+
+        cy.get('#optin').each(($checkbox) => {
+            // Generate a random boolean
+            const randomBoolean = Math.random() >= 0.2;
+
+            if (randomBoolean) {
+                // Check the checkbox if it's not already checked
+                cy.wrap($checkbox).check();
+            } else {
+                // Uncheck the checkbox if it's not already unchecked
+                cy.wrap($checkbox).uncheck();
+            }
+        })
+        cy.get('#optin').each(($checkbox) => {
+            const isChecked = $checkbox.prop('checked');
+            cy.wrap($checkbox).should(isChecked ? 'be.checked' : 'not.be.checked')
+        });
     });
+
 });
