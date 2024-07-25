@@ -1,4 +1,4 @@
-import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { generateDataAndSaveData } from '../../commands/commands';
 
 before(() => {
@@ -14,6 +14,11 @@ When('I fill out the sign up form with valid data', () => {
     cy.generateDataAndSaveData().as('userData');
     cy.get('@userData').then(({ userData }) => {
         const fullName = `${userData.firstName} ${userData.lastName}`;
+
+        // Store the fullName and email for later use
+        cy.wrap(userData.firstName).as('firstName');
+        cy.wrap(userData.lastName).as('lastName');
+        cy.wrap(userData.email).as('email');
 
         // Fill out the signup form with generated data
         cy.get('[data-qa="signup-name"]').type(fullName);
@@ -32,8 +37,7 @@ And('I should be able to view the form for the Account Information and Address I
 });
 
 And('I should be able to add my Personal Details on each section', () => {
-    cy.generateDataAndSaveData().as('gender');
-    cy.get('@gender').then(({ userData }) => {
+    cy.get('@userData').then(({ userData }) => {
         // Select gender radio button based on generated gender
         if (userData.gender === 'Mr.') {
             cy.get('#id_gender1').check({ force: true });
@@ -72,4 +76,12 @@ And('I should be able to add my Personal Details on each section', () => {
 
     toggleCheckbox('#newsletter');
     toggleCheckbox('#optin');
+
+    // Reuse stored values for additional form fields
+    cy.get('@firstName').then(fName => {
+        cy.get('[data-qa="first_name"]').type(fName);
+    });
+    cy.get('@lastName').then(lName => {
+        cy.get('[data-qa="last_name"]').type(lName);
+    });
 });
