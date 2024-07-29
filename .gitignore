@@ -2,4 +2,4 @@
 /package.json
 /package_lock.json
 .gitignore
-/cypress/fixtures/*
+cypress/fixtures/*.json
