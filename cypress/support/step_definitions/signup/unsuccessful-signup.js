@@ -1,40 +1,25 @@
-import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { generateDataAndSaveData } from '../../commands/commands';
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
 
-before(() => {
-    cy.viewport(Cypress.config('viewportHeight'), Cypress.config('viewportWidth'));
+Given('that I am on the Sign Up page', () => {
+    cy.visit('/signup');
 });
 
-Given('that I am on the sign up page', () => {
-    cy.get(':nth-child(4) > a')
-        .contains('Signup')
-        .wait(3000);
-});
+When('I fill out the sign up form with invalid data', () => {
+    cy.getRandomEmailWithName().then(({ email, fullName }) => {
+        // Fill in the email
+        cy.get('[data-qa="signup-name"]').type(fullName)
+        cy.get('[data-qa="signup-email"]').type(email);
 
-When('I fill out the sign up form with an existing data', () => {
-    cy.fixture('generated-test-data').then((users) => {
-        // Select a random user from the array (example usage)
-        const randomUser = users[Math.floor(Math.random() * users.length)];
-
-        // Validate user data structure
-        if (!randomUser || !randomUser.email || !randomUser.firstName || !randomUser.lastName) {
-            throw new Error('Invalid user data structure');
-        }
-
-        const fullName = `${randomUser.firstName} ${randomUser.lastName}`;
-
-        // Fill out the form fields
-        cy.get('[data-qa="signup-name"]').type(fullName);
-        cy.get('[data-qa="signup-email"]').type(randomUser.email);
+        // Optional: Log the full name for verification
+        cy.log(`Filling out form with email: ${email} and full name: ${fullName}`);
     });
 });
 
-And('I submit the Sign Up Form', () => {
+And('submit the Sign Up Form with incorrect credentials', () => {
     cy.get('[data-qa="signup-button"]').click();
 });
 
-Then(' I should see an Error Message', () => {
-    cy.get('.signup-form > form > p')
+Then('I should view an Error Message', () => {
+    cy.get('.signup-form > form > p').should('be.visible')
         .contains('Email Address already exist!')
-        .wait(3500);
-});
+})

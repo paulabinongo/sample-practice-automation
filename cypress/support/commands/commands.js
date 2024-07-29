@@ -39,3 +39,20 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
         });
     });
 });
+
+
+Cypress.Commands.add('getRandomEmailWithName', () => {
+    return cy.readFile('cypress/fixtures/generated-test-data.json').then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const selectedData = data[randomIndex];
+            const fullName = `${selectedData.firstName} ${selectedData.lastName}`;
+            return {
+                email: selectedData.email,
+                fullName: fullName
+            };
+        } else {
+            throw new Error('No data found in JSON file');
+        }
+    });
+});
