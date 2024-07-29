@@ -6,6 +6,8 @@ Scenario: Successful Sign Up
   And I submit the Sign Up Form
   And I should be able to view the form for the Account Information and Address Information
   And I should be able to add my Personal Details on each section
+  Then I should be able to view the Success Message
+  And I should be able to be redirected to the Dashboard page, once I click the Continue button 
 
 
 

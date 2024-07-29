@@ -88,4 +88,18 @@ And('I should be able to add my Personal Details on each section', () => {
             cy.get(fields[key]).type(value);
         });
     });
+
+    cy.get('[data-qa="create-account"]').click()
 });
+
+Then('I should be able to view the Success Message', () => {
+    cy.url().should('include', '/account_created')
+    cy.get('b').contains('Account Created!', { matchCase: false });
+    cy.get('.col-sm-9').should('be.visible')
+        .contains('Congratulations! Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.');
+
+})
+And('I should be able to be redirected to the Dashboard page, once I click the Continue button', () => {
+    cy.get('[data-qa="continue-button"]').contains('Continue').click()
+    cy.url().should('include', '/')
+})
