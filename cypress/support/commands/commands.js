@@ -1,15 +1,13 @@
 const faker = require('faker');
-const countryMobileMapping = require('../../fixtures/country-mobile-mapping.json'); // Adjust the path as needed
+const countryAddressMapping = require('../../fixtures/country-mobile-mapping.json'); // Adjust path as needed
 
 Cypress.Commands.add('generateDataAndSaveData', () => {
     return cy.readFile('cypress/fixtures/generated-test-data.json').then((existingData) => {
         // Select a random country from the mapping
-        const country = faker.random.arrayElement(Object.keys(countryMobileMapping));
-        const countryData = countryMobileMapping[country];
+        const country = faker.random.arrayElement(Object.keys(countryAddressMapping));
+        const addressData = countryAddressMapping[country];
 
-        // Generate a mobile number based on the country format
-        const mobileNumber = `${countryData.prefix}${faker.phone.phoneNumber(countryData.format)}`;
-
+        // Generate dynamic address details
         const userData = {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
@@ -17,7 +15,12 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
             gender: faker.random.arrayElement(['Mr.', 'Mrs.']),
             company: faker.company.companyName(),
             country: country,
-            mobileNumber: mobileNumber
+            mobileNumber: faker.phone.phoneNumber(), // Format this depending on the country
+            address1: addressData.address1 || faker.address.streetAddress(),
+            address2: addressData.address2 || faker.address.secondaryAddress(),
+            city: faker.address.city(),
+            state: faker.random.arrayElement(addressData.state) || faker.address.stateAbbr(),
+            zipcode: faker.address.zipCode(addressData.zipcode || '#####')
         };
 
         // Append new data to the existing data

@@ -22,13 +22,17 @@ When('I fill out the sign up form with valid data', () => {
         cy.wrap(userData.company).as('company');
         cy.wrap(userData.country).as('country');
         cy.wrap(userData.mobileNumber).as('mobileNumber');
+        cy.wrap(userData.address1).as('address1');
+        cy.wrap(userData.address2).as('address2');
+        cy.wrap(userData.city).as('city');
+        cy.wrap(userData.state).as('state');
+        cy.wrap(userData.zipcode).as('zipcode');
 
         // Fill out the signup form with generated data
         cy.get('[data-qa="signup-name"]').type(fullName);
         cy.get('[data-qa="signup-email"]').type(userData.email);
     });
 });
-
 And('I submit the Sign Up Form', () => {
     cy.get('[data-qa="signup-button"]').click();
 });
@@ -94,6 +98,26 @@ And('I should be able to add my Personal Details on each section', () => {
 
     cy.get('@country').then(country => {
         cy.get('[data-qa="country"]').select(country);
+    });
+
+    cy.get('@address1').then(address1 => {
+        cy.get('[data-qa="address"]').type(address1);
+    });
+
+    cy.get('@address2').then(address2 => {
+        cy.get('[data-qa="address2"]').type(address2);
+    });
+
+    cy.get('@state').then(state => {
+        cy.get('[data-qa="state"]').type(state);
+    });
+
+    cy.get('@city').then(city => {
+        cy.get('[data-qa="city"]').type(city);
+    });
+
+    cy.get('@zipcode').then(zipcode => {
+        cy.get('[data-qa="zipcode"]').type(zipcode);
     });
 
     cy.get('@mobileNumber').then(mobileNumber => {

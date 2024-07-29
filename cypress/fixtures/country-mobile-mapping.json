@@ -1,30 +1,65 @@
 {
-    "USA": {
+    "United States": {
         "prefix": "+1",
-        "format": "##########"
+        "format": "##########",
+        "address1": "1234 Elm St",
+        "address2": "Apt 567",
+        "city": "Springfield",
+        "state": ["CA", "NY", "TX"],
+        "zipcode": "62701"
     },
     "India": {
         "prefix": "+91",
-        "format": "###########"
+        "format": "###########",
+        "address1": "12, MG Road",
+        "address2": "Building 4",
+        "city": "Mumbai",
+        "state": "MH",
+        "zipcode": "400001"
     },
     "Canada": {
         "prefix": "+1",
-        "format": "###-###-####"
+        "format": "###-###-####",
+        "address1": "789 Maple Ave",
+        "address2": "Unit 34",
+        "city": "Toronto",
+        "state": ["ON", "BC", "QC"],
+        "zipcode": "M5A 1A1"
     },
     "Australia": {
         "prefix": "+61",
-        "format": "04## ### ###"
+        "format": "04## ### ###",
+        "address1": "321 King St",
+        "address2": "Level 5",
+        "city": "Sydney",
+        "state": ["NSW", "VIC", "QLD"],
+        "zipcode": "2000"
     },
     "Israel": {
         "prefix": "+972",
-        "format": "5##-###-###"
+        "format": "5##-###-###",
+        "address1": "34 Rothschild Blvd",
+        "address2": "",
+        "city": "Tel Aviv",
+        "state": [],
+        "zipcode": "61000"
     },
     "New Zealand": {
         "prefix": "+64",
-        "format": "02## ### ###"
+        "format": "02## ### ###",
+        "address1": "456 Queen St",
+        "address2": "Floor 3",
+        "city": "Auckland",
+        "state": ["AUK", "WGN", "CAN"],
+        "zipcode": "1010"
     },
     "Singapore": {
         "prefix": "+65",
-        "format": "8### ####"
+        "format": "8### ####",
+        "address1": "78 Orchard Road",
+        "address2": "Unit 10",
+        "city": "Singapore",
+        "state": [],
+        "zipcode": "238839"
     }
 }
