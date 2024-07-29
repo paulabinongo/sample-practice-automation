@@ -7,6 +7,12 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
         const country = faker.random.arrayElement(Object.keys(countryAddressMapping));
         const addressData = countryAddressMapping[country];
 
+        // Function to generate mobile number based on format and prefix
+        const generateMobileNumber = (format, prefix) => {
+            let number = faker.phone.phoneNumber(format).replace(/[^0-9]/g, ''); // Remove non-numeric characters
+            return `${prefix}${number}`;
+        };
+
         // Generate dynamic address details
         const userData = {
             firstName: faker.name.firstName(),
@@ -15,7 +21,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
             gender: faker.random.arrayElement(['Mr.', 'Mrs.']),
             company: faker.company.companyName(),
             country: country,
-            mobileNumber: faker.phone.phoneNumber(), // Format this depending on the country
+            mobileNumber: generateMobileNumber(addressData.mobileFormat || '##########', addressData.mobilePrefix || '+1'),
             address1: addressData.address1 || faker.address.streetAddress(),
             address2: addressData.address2 || faker.address.secondaryAddress(),
             city: faker.address.city(),

@@ -6,33 +6,22 @@ before(() => {
 });
 
 Given('that I am on the sign up page', () => {
-    const signupUrl = Cypress.config('baseUrl');
-    cy.visit(`${signupUrl}/signup`);
+    cy.visit(`${Cypress.config('baseUrl')}/signup`);
 });
 
 When('I fill out the sign up form with valid data', () => {
     cy.generateDataAndSaveData().as('userData');
     cy.get('@userData').then(({ userData }) => {
         const fullName = `${userData.firstName} ${userData.lastName}`;
+        const userFields = ['firstName', 'lastName', 'email', 'company', 'country', 'mobileNumber', 'address1', 'address2', 'city', 'state', 'zipcode'];
 
-        // Store the generated data for later use
-        cy.wrap(userData.firstName).as('firstName');
-        cy.wrap(userData.lastName).as('lastName');
-        cy.wrap(userData.email).as('email');
-        cy.wrap(userData.company).as('company');
-        cy.wrap(userData.country).as('country');
-        cy.wrap(userData.mobileNumber).as('mobileNumber');
-        cy.wrap(userData.address1).as('address1');
-        cy.wrap(userData.address2).as('address2');
-        cy.wrap(userData.city).as('city');
-        cy.wrap(userData.state).as('state');
-        cy.wrap(userData.zipcode).as('zipcode');
+        userFields.forEach(field => cy.wrap(userData[field]).as(field));
 
-        // Fill out the signup form with generated data
         cy.get('[data-qa="signup-name"]').type(fullName);
         cy.get('[data-qa="signup-email"]').type(userData.email);
     });
 });
+
 And('I submit the Sign Up Form', () => {
     cy.get('[data-qa="signup-button"]').click();
 });
@@ -45,22 +34,15 @@ And('I should be able to view the form for the Account Information and Address I
 
 And('I should be able to add my Personal Details on each section', () => {
     cy.get('@userData').then(({ userData }) => {
-        // Select gender radio button based on generated gender
-        if (userData.gender === 'Mr.') {
-            cy.get('#id_gender1').check({ force: true });
-        } else if (userData.gender === 'Mrs.') {
-            cy.get('#id_gender2').check({ force: true });
-        }
+        cy.get(userData.gender === 'Mr.' ? '#id_gender1' : '#id_gender2').check({ force: true });
     });
 
     cy.get('[data-qa="password"]').type('Password123');
 
-    // Function to select a random option from a dropdown
     const selectRandomOption = (selector) => {
         cy.get(selector).then($select => {
             const options = $select.find('option');
-            const randomIndex = Math.floor(Math.random() * options.length);
-            const randomValue = options.eq(randomIndex).val();
+            const randomValue = options.eq(Math.floor(Math.random() * options.length)).val();
             cy.wrap($select).select(randomValue);
         });
     };
@@ -69,58 +51,41 @@ And('I should be able to add my Personal Details on each section', () => {
     selectRandomOption('[data-qa="months"]');
     selectRandomOption('[data-qa="years"]');
 
-    // Randomly check/uncheck checkboxes
     const toggleCheckbox = (selector) => {
         cy.get(selector).each($checkbox => {
-            const randomBoolean = Math.random() >= 0.5;
-            if (randomBoolean) {
-                cy.wrap($checkbox).check({ force: true });
-            } else {
-                cy.wrap($checkbox).uncheck({ force: true });
-            }
+            const shouldCheck = Math.random() >= 0.5;
+            cy.wrap($checkbox).then($checkbox => {
+                if (shouldCheck) {
+                    cy.wrap($checkbox).check({ force: true });
+                } else {
+                    cy.wrap($checkbox).uncheck({ force: true });
+                }
+            });
         });
     };
 
     toggleCheckbox('#newsletter');
     toggleCheckbox('#optin');
 
-    // Reuse stored values for additional form fields
-    cy.get('@firstName').then(fName => {
-        cy.get('[data-qa="first_name"]').type(fName);
-    });
-    cy.get('@lastName').then(lName => {
-        cy.get('[data-qa="last_name"]').type(lName);
-    });
-
-    cy.get('@company').then(company => {
-        cy.get('[data-qa="company"]').type(company);
-    });
-
     cy.get('@country').then(country => {
         cy.get('[data-qa="country"]').select(country);
     });
 
-    cy.get('@address1').then(address1 => {
-        cy.get('[data-qa="address"]').type(address1);
-    });
+    const fields = {
+        firstName: '[data-qa="first_name"]',
+        lastName: '[data-qa="last_name"]',
+        company: '[data-qa="company"]',
+        address1: '[data-qa="address"]',
+        address2: '[data-qa="address2"]',
+        city: '[data-qa="city"]',
+        state: '[data-qa="state"]',
+        zipcode: '[data-qa="zipcode"]',
+        mobileNumber: '[data-qa="mobile_number"]'
+    };
 
-    cy.get('@address2').then(address2 => {
-        cy.get('[data-qa="address2"]').type(address2);
-    });
-
-    cy.get('@state').then(state => {
-        cy.get('[data-qa="state"]').type(state);
-    });
-
-    cy.get('@city').then(city => {
-        cy.get('[data-qa="city"]').type(city);
-    });
-
-    cy.get('@zipcode').then(zipcode => {
-        cy.get('[data-qa="zipcode"]').type(zipcode);
-    });
-
-    cy.get('@mobileNumber').then(mobileNumber => {
-        cy.get('[data-qa="mobile_number"]').type(mobileNumber);
+    Object.keys(fields).forEach(key => {
+        cy.get(`@${key}`).then(value => {
+            cy.get(fields[key]).type(value);
+        });
     });
 });
