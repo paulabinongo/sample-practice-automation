@@ -15,10 +15,13 @@ When('I fill out the sign up form with valid data', () => {
     cy.get('@userData').then(({ userData }) => {
         const fullName = `${userData.firstName} ${userData.lastName}`;
 
-        // Store the fullName and email for later use
+        // Store the generated data for later use
         cy.wrap(userData.firstName).as('firstName');
         cy.wrap(userData.lastName).as('lastName');
         cy.wrap(userData.email).as('email');
+        cy.wrap(userData.company).as('company');
+        cy.wrap(userData.country).as('country');
+        cy.wrap(userData.mobileNumber).as('mobileNumber');
 
         // Fill out the signup form with generated data
         cy.get('[data-qa="signup-name"]').type(fullName);
@@ -33,7 +36,7 @@ And('I submit the Sign Up Form', () => {
 And('I should be able to view the form for the Account Information and Address Information', () => {
     cy.get(':nth-child(1) > b').contains('Enter Account Information', { matchCase: false });
     cy.get('form > .title > b').contains('Address Information', { matchCase: false });
-    cy.wait(3500);
+    cy.wait(3500); // Adjust the wait time if necessary
 });
 
 And('I should be able to add my Personal Details on each section', () => {
@@ -83,5 +86,17 @@ And('I should be able to add my Personal Details on each section', () => {
     });
     cy.get('@lastName').then(lName => {
         cy.get('[data-qa="last_name"]').type(lName);
+    });
+
+    cy.get('@company').then(company => {
+        cy.get('[data-qa="company"]').type(company);
+    });
+
+    cy.get('@country').then(country => {
+        cy.get('[data-qa="country"]').select(country);
+    });
+
+    cy.get('@mobileNumber').then(mobileNumber => {
+        cy.get('[data-qa="mobile_number"]').type(mobileNumber);
     });
 });

@@ -1,0 +1,30 @@
+{
+    "USA": {
+        "prefix": "+1",
+        "format": "##########"
+    },
+    "India": {
+        "prefix": "+91",
+        "format": "###########"
+    },
+    "Canada": {
+        "prefix": "+1",
+        "format": "###-###-####"
+    },
+    "Australia": {
+        "prefix": "+61",
+        "format": "04## ### ###"
+    },
+    "Israel": {
+        "prefix": "+972",
+        "format": "5##-###-###"
+    },
+    "New Zealand": {
+        "prefix": "+64",
+        "format": "02## ### ###"
+    },
+    "Singapore": {
+        "prefix": "+65",
+        "format": "8### ####"
+    }
+}
