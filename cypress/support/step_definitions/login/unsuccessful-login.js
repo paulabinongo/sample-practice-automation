@@ -4,17 +4,17 @@ import {
     fillLoginFormForInvalidData,
     submitLogInForm,
     verifyErrorMessageForLogin
-} from '../../../common/helpers/helpers';
+} from '../../../common/helpers/register-login-logout-delete-helper';
 
-Given('that I am on the Log In page', () => {
+Given('that I am on the login page', () => {
     visitLoginPage();
 });
-When('I fill out the log in form with invalid data', () => {
+When('I fill out the login form with invalid data', () => {
     fillLoginFormForInvalidData();
 });
-Then('I submit the Log In Form with incorrect credentials', () => {
+Then('I submit the login Form with incorrect credentials', () => {
     submitLogInForm();
 });
-And('I should view the Error Message', () => {
+And('I should view the Error Message for login', () => {
     verifyErrorMessageForLogin();
 })

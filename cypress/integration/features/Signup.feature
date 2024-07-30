@@ -1,16 +1,16 @@
-Feature: User Sign Up
+Feature: User Signup
 
-Scenario: Successful Sign Up
-  Given that I am on the Sign Up page
-  When I fill out the sign up form with valid data
-  And submit the Sign Up Form with correct credentials
+Scenario: Successful Signup
+  Given that I am on the signup page
+  When I fill out the signup form with valid data
+  And submit the signup Form with correct credentials
   And I should view the form for the Account Information and Address Information
   And I should add my Personal Details on each section
-  Then I should view the Success Message
+  Then I should view the Success Message for signup
   And I should be redirected to the Dashboard page, once I click the Continue button 
 
-Scenario: Unsuccessful Sign Up
-  Given that I am on the Sign Up page
-  When I fill out the sign up form with invalid data
-  And submit the Sign Up Form with incorrect credentials
-  Then I should view the Error Message
+Scenario: Unsuccessful Signup
+  Given that I am on the signup page
+  When I fill out the signup form with invalid data
+  And submit the signup Form with incorrect credentials
+  Then I should view the Error Message for signup

@@ -7,24 +7,24 @@ import {
     addPersonalDetails,
     verifySuccessMessageForSignUp,
     continueToDashboard
-} from '../../../common/helpers/helpers';
+} from '../../../common/helpers/register-login-logout-delete-helper';
 
 before(() => {
     cy.viewport(Cypress.config('viewportWidth'), Cypress.config('viewportHeight'));
 });
 
-Given('that I am on the sign up page', () => {
+Given('that I am on the signup page', () => {
     visitSignUpPage();
 });
 
-When('I fill out the sign up form with valid data', () => {
+When('I fill out the signup form with valid data', () => {
     cy.generateDataAndSaveData().as('userData');
     cy.get('@userData').then(({ userData }) => {
         fillSignUpFormForValidData(userData);
     });
 });
 
-And('submit the Sign Up Form with correct credentials', () => {
+And('submit the signup Form with correct credentials', () => {
     submitSignUpForm();
 });
 
@@ -38,7 +38,7 @@ And('I should add my Personal Details on each section', () => {
     });
 });
 
-Then('I should view the Success Message', () => {
+Then('I should view the Success Message for signup', () => {
     verifySuccessMessageForSignUp();
 });
 

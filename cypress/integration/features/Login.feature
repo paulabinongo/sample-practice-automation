@@ -1,13 +1,13 @@
-Feature: User Log In
+Feature: User Login
 
-Scenario: Successful Log In
- Given that I am on the Log In page
- When I fill out the log in form with valid data
- And I submit the Log In Form with correct credentials
- Then I should view the Success Message
+Scenario: Successful Login
+ Given that I am on the login page
+ When I fill out the login form with valid data
+ And I submit the login Form with correct credentials
+ Then I should view the Success Message for login
 
-Scenario: Unsuccessful Log In
- Given that I am on the Log In page
- When I fill out the log in form with invalid data
- And I submit the Log In Form with incorrect credentials
- Then I should view the Error Message
+Scenario: Unsuccessful Login
+ Given that I am on the login page
+ When I fill out the login form with invalid data
+ And I submit the login Form with incorrect credentials
+ Then I should view the Error Message for login
