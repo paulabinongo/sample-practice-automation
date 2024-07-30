@@ -1,5 +1,4 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { generateDataAndSaveData } from '../../commands/commands';
 import {
     visitSignUpPage,
     fillSignUpFormForValidData,
