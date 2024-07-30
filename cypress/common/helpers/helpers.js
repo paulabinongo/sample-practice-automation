@@ -12,14 +12,11 @@ export const fillSignUpFormForValidData = (userData) => {
     cy.get('[data-qa="signup-email"]').type(userData.email);
 };
 
-export const fillSignUpFormForInvalidData = (userData) => {
-    cy.getRandomEmailWithName().then(({ email, fullName }) => {
+export const fillSignUpFormForInvalidData = () => {
+    cy.getRandomEmailAndName().then(({ email, fullName }) => {
         // Fill in the email
         cy.get('[data-qa="signup-name"]').type(fullName)
         cy.get('[data-qa="signup-email"]').type(email);
-
-        // Optional: Log the full name for verification
-        cy.log(`Filling out form with email: ${email} and full name: ${fullName}`);
     });
 }
 
@@ -93,16 +90,47 @@ export const addPersonalDetails = (userData) => {
 export const verifySuccessMessageForSignUp = () => {
     cy.url().should('include', '/account_created');
     cy.get('b').contains('Account Created!', { matchCase: false });
-    cy.get('.col-sm-9').should('be.visible')
-        .contains('Congratulations! Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.');
+    cy.get('.col-sm-9').contains('Congratulations! Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.')
+        .should('be.visible')
 };
 
 export const verifyErrorMessageForSignUp = () => {
-    cy.get('.signup-form > form > p').should('be.visible')
-        .contains('Email Address already exist!')
+    cy.get('.signup-form > form > p').contains('Email Address already exist!')
+        .should('be.visible')
 }
 
 export const continueToDashboard = () => {
     cy.get('[data-qa="continue-button"]').contains('Continue').click();
     cy.url().should('include', '/');
 };
+
+export const visitLoginPage = () => {
+    cy.visit(`${Cypress.config('baseUrl')}/signup`)
+}
+
+export const fillLoginFormForValidData = () => {
+    cy.getRandomEmailAndName().then(({ email }) => {
+        cy.get('[data-qa="login-email"]').type(email)
+    })
+    cy.get('[data-qa="login-password"]').type('Password123')
+}
+
+export const fillLoginFormForInvalidData = () => {
+    cy.getRandomEmailAndName().then(({ email }) => {
+        cy.get('[data-qa="login-email"]').type(email)
+    })
+    cy.get('[data-qa="login-password"]').type('PassworD')
+}
+
+export const submitLogInForm = () => {
+    cy.get('[data-qa="login-button"]').click();
+};
+
+export const verifySuccessMessageForLogin = () => {
+    cy.url().should('include', '/');
+}
+
+export const verifyErrorMessageForLogin = () => {
+    cy.get('.login-form > form > p').contains('Your email or password is incorrect!')
+        .should('be.visible')
+}

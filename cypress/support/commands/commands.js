@@ -41,7 +41,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
 });
 
 
-Cypress.Commands.add('getRandomEmailWithName', () => {
+Cypress.Commands.add('getRandomEmailAndName', () => {
     return cy.readFile('cypress/common/fixtures/generated-test-data.json').then(data => {
         if (Array.isArray(data) && data.length > 0) {
             const randomIndex = Math.floor(Math.random() * data.length);

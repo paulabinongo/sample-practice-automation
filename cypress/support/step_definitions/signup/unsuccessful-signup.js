@@ -7,17 +7,17 @@ import {
 } from '../../../common/helpers/helpers';
 
 Given('that I am on the Sign Up page', () => {
-    visitSignUpPage()
+    visitSignUpPage();
 });
 
 When('I fill out the sign up form with invalid data', () => {
-    fillSignUpFormForInvalidData()
+    fillSignUpFormForInvalidData();
 });
 
 And('submit the Sign Up Form with incorrect credentials', () => {
-    submitSignUpForm()
+    submitSignUpForm();
 });
 
-Then('I should view an Error Message', () => {
-    verifyErrorMessageForSignUp()
-})
+Then('I should view the Error Message', () => {
+    verifyErrorMessageForSignUp();
+});

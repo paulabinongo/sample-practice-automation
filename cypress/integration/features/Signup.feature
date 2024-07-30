@@ -1,4 +1,5 @@
 Feature: User Sign Up
+
 Scenario: Successful Sign Up
   Given that I am on the Sign Up page
   When I fill out the sign up form with valid data
@@ -8,11 +9,8 @@ Scenario: Successful Sign Up
   Then I should view the Success Message
   And I should be redirected to the Dashboard page, once I click the Continue button 
 
-
 Scenario: Unsuccessful Sign Up
   Given that I am on the Sign Up page
   When I fill out the sign up form with invalid data
   And submit the Sign Up Form with incorrect credentials
-  Then I should view an Error Message
-
-
+  Then I should view the Error Message
