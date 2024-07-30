@@ -1,4 +1,6 @@
+.gitignore
 /node_modules
 /package.json
 /package_lock.json
-.gitignore
+cypress/fixtures/generated-test-data.json
+cypress/fixtures/country-mobile-mapping.json

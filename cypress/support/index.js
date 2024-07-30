@@ -1,2 +1,2 @@
 import 'cypress-cucumber-preprocessor/steps';
-import './commands/commands';
+import './commands/commands'
