@@ -143,3 +143,20 @@ export const verifyDashboardPage = () => {
     cy.get('[data-qa="login-button"]').click();
     cy.url().should('include', '/');
 }
+
+export const verifyClickLogout = () => {
+    cy.get('.shop-menu > .nav > :nth-child(4) > a').should('be.visible')
+        .contains('Logout').click();
+}
+
+export const verifyClickDelete = () => {
+    cy.get('.shop-menu > .nav > :nth-child(5)').should('be.visible')
+        .contains('Delete Account').click();
+}
+
+export const verifySuccessMessageForAccountDeletion = () => {
+    cy.url().should('include', '/delete_account');
+    cy.get('b').contains('Account Deleted!', { matchCase: false });
+    cy.get('.col-sm-9').should('be.visible')
+        .contains('Your account has been permanently deleted! You can create new account to take advantage of member privileges to enhance your online shopping experience with us.');
+};

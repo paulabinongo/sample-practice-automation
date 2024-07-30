@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
 import {
     visitSignUpPage,
     fillSignUpFormForValidData,

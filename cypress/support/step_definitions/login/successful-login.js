@@ -1,4 +1,4 @@
-import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
 import { visitLoginPage, fillLoginFormForValidData, submitLogInForm, verifySuccessMessageForLogin } from '../../../common/helpers/register-login-logout-delete-helper';
 
 
