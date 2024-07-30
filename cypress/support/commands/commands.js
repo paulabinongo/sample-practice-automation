@@ -1,8 +1,8 @@
 const faker = require('faker');
-const countryAddressMapping = require('../../fixtures/country-mobile-mapping.json'); // Adjust path as needed
+const countryAddressMapping = require('../../common/fixtures/country-mobile-mapping.json'); // Adjust path as needed
 
 Cypress.Commands.add('generateDataAndSaveData', () => {
-    return cy.readFile('cypress/fixtures/generated-test-data.json').then((existingData) => {
+    return cy.readFile('cypress/common/fixtures/generated-test-data.json').then((existingData) => {
         // Select a random country from the mapping
         const country = faker.random.arrayElement(Object.keys(countryAddressMapping));
         const addressData = countryAddressMapping[country];
@@ -42,7 +42,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
 
 
 Cypress.Commands.add('getRandomEmailWithName', () => {
-    return cy.readFile('cypress/fixtures/generated-test-data.json').then(data => {
+    return cy.readFile('cypress/common/fixtures/generated-test-data.json').then(data => {
         if (Array.isArray(data) && data.length > 0) {
             const randomIndex = Math.floor(Math.random() * data.length);
             const selectedData = data[randomIndex];

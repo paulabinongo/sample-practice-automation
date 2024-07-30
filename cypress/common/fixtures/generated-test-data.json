@@ -54,19 +54,5 @@
     "city": "Covina",
     "state": "b",
     "zipcode": "28344"
-  },
-  {
-    "firstName": "Rosella",
-    "lastName": "Borer",
-    "email": "Josefina.Franecki@hotmail.com",
-    "gender": "Mr.",
-    "company": "Lehner, Baumbach and Connelly",
-    "country": "Australia",
-    "mobileNumber": "+61480807004",
-    "address1": "779 Beatty Mall",
-    "address2": "Apt. 184",
-    "city": "Shannyfurt",
-    "state": "b",
-    "zipcode": "36360"
   }
 ]
