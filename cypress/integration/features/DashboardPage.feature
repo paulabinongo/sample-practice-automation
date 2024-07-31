@@ -1,7 +1,7 @@
 Feature: Dashbaord Management
 
-Scenario: Dashboard Page
- Given that I am on the dashboard page
- And view all the Navigation buttons
- When I view that there is a logout button
- Then I should be able to log out from the website
+Scenario: Dashboard Page on the Home
+ Given that I login to the website with the correct and existing credentials
+ When I view that I am already on the dashboard page
+ Then I shhould view the navigation buttons
+ And be able to scroll up and down the page
