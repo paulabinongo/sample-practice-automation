@@ -137,12 +137,14 @@ export const verifyErrorMessageForLogin = () => {
 export const verifyDashboardPage = () => {
     cy.visit(`${Cypress.config('baseUrl')}/login`);
     cy.getRandomEmailAndName().then(({ email }) => {
+        // Store the email as an alias for use later
+        cy.wrap(email).as('userEmail');
         cy.get('[data-qa="login-email"]').type(email);
-    })
+    });
     cy.get('[data-qa="login-password"]').type('Password123');
     cy.get('[data-qa="login-button"]').click();
     cy.url().should('include', '/');
-}
+};
 
 export const verifyClickLogout = () => {
     cy.get('.shop-menu > .nav > :nth-child(4) > a').should('be.visible')
@@ -152,6 +154,14 @@ export const verifyClickLogout = () => {
 export const verifyClickDelete = () => {
     cy.get('.shop-menu > .nav > :nth-child(5)').should('be.visible')
         .contains('Delete Account').click();
+    cy.get('@userEmail').then(email => {
+        cy.log(`Logged out email: ${email}`);
+
+        // Call the task to delete the user from the JSON file
+        cy.task('deleteUserFromJSON', email).then(() => {
+            cy.log(`User with email ${email} deleted from JSON file.`);
+        });
+    });
 }
 
 export const verifySuccessMessageForAccountDeletion = () => {
