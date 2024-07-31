@@ -1,11 +1,8 @@
-import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import {} from 'cypress-cucumber-preprocessor/steps';
+// cypress/integration/step_definitions/dashboardSteps.js
 
+import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { verifyDashboardPage, visitLoginPage, submitLogInForm } from '../../../common/helpers/register-login-logout-delete-helper';
 
-Given('that I am on the Dashboard page', () => {
-
-})
-When('I view that there is a logout button', () => {})
-Then('I should be able to log out from the website', () => {
-
-})
+Given('that I login to the website with the correct and existing credentials', () => {
+    verifyDashboardPage(visitLoginPage, visitLoginPage, submitLogInForm);
+});

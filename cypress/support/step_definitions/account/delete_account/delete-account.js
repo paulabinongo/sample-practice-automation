@@ -1,8 +1,8 @@
 import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { verifyDashboardPage, verifyClickDelete, verifySuccessMessageForAccountDeletion } from '../../../../common/helpers/register-login-logout-delete-helper';
+import { verifyDashboardPage, verifyClickDelete, verifySuccessMessageForAccountDeletion, visitLoginPage, submitLogInForm } from '../../../../common/helpers/register-login-logout-delete-helper';
 
-Given('that I am on the dashboard page', () => {
-    verifyDashboardPage();
+Given('that I login to the website with the correct and existing credentials', () => {
+    verifyDashboardPage(visitLoginPage, submitLogInForm);
 });
 When('I view that there is a delete button', () => {
     verifyClickDelete();
