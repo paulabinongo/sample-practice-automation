@@ -2,5 +2,5 @@
 /node_modules
 /package.json
 /package_lock.json
-cypress/fixtures/generated-test-data.json
-cypress/fixtures/country-mobile-mapping.json
+cypress/common/fixtures/generated-test-data.json
+cypress/common/fixtures/country-mobile-mapping.json

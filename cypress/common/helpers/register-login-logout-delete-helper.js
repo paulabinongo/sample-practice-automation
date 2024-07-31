@@ -134,15 +134,15 @@ export const verifyErrorMessageForLogin = () => {
     cy.get('.login-form > form > p').contains('Your email or password is incorrect!');
 }
 
-// export const verifyDashboardPage = () => {
-//     cy.visit(`${Cypress.config('baseUrl')}/login`);
-//     cy.getRandomEmailAndName().then(({ email }) => {
-//         cy.get('[data-qa="login-email"]').type(email);
-//     })
-//     cy.get('[data-qa="login-password"]').type('Password123');
-//     cy.get('[data-qa="login-button"]').click();
-//     cy.url().should('include', '/');
-// }
+export const verifyDashboardPage = () => {
+    cy.visit(`${Cypress.config('baseUrl')}/login`);
+    cy.getRandomEmailAndName().then(({ email }) => {
+        cy.get('[data-qa="login-email"]').type(email);
+    })
+    cy.get('[data-qa="login-password"]').type('Password123');
+    cy.get('[data-qa="login-button"]').click();
+    cy.url().should('include', '/');
+}
 
 export const verifyClickLogout = () => {
     cy.get('.shop-menu > .nav > :nth-child(4) > a').should('be.visible')
