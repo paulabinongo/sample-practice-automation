@@ -1,16 +1,16 @@
 import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { visitLoginPage, fillLoginFormForValidData, submitLogInForm, verifySuccessMessageForLogin } from '../../../common/helpers/register-login-logout-delete-helper';
+import { visitLoginPage, fillLoginFormForValidData, submitLogInForm, verifySuccessMessageForLogin } from '../../../../common/helpers/register-login-logout-delete-helper';
 
 
 Given('that I am on the login page', () => {
     visitLoginPage();
 });
 
-When('I fill out the login form with valid data', () => {
+When('I fill out the login form with correct credentials', () => {
     fillLoginFormForValidData();
 });
 
-And('I submit the login Form with correct credentials', () => {
+And('submit the login form', () => {
     submitLogInForm();
 });
 

@@ -1,16 +1,16 @@
-Feature: User Signup
+Feature: Register User
 
-Scenario: Successful Signup
+Scenario: Register User with New Credentials
   Given that I am on the signup page
-  When I fill out the signup form with valid data
-  And submit the signup Form with correct credentials
-  And I should view the form for the Account Information and Address Information
-  And I should add my Personal Details on each section
+  When I fill out the signup form with new credentials
+  And submit the signup form
+  And view the Account Information and Address Information sections
+  And add my Personal Details on each section
   Then I should view the Success Message for signup
-  And I should be redirected to the Dashboard page, once I click the Continue button 
+  And be redirected to the Dashboard page
 
-Scenario: Unsuccessful Signup
+Scenario: Register User with Existing Credentials
   Given that I am on the signup page
-  When I fill out the signup form with invalid data
-  And submit the signup Form with incorrect credentials
+  When I fill out the signup form with existing credentials
+  And submit the signup form
   Then I should view the Error Message for signup

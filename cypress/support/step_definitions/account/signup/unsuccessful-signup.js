@@ -4,17 +4,17 @@ import {
     fillSignUpFormForInvalidData,
     submitSignUpForm,
     verifyErrorMessageForSignUp
-} from '../../../common/helpers/register-login-logout-delete-helper';
+} from '../../../../common/helpers/register-login-logout-delete-helper';
 
 Given('that I am on the signup page', () => {
     visitSignUpPage();
 });
 
-When('I fill out the signup form with invalid data', () => {
+When('I fill out the signup form with existing credentials', () => {
     fillSignUpFormForInvalidData();
 });
 
-And('submit the signup Form with incorrect credentials', () => {
+And('submit the signup form', () => {
     submitSignUpForm();
 });
 
