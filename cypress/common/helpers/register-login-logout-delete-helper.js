@@ -159,4 +159,6 @@ export const verifySuccessMessageForAccountDeletion = () => {
     cy.get('b').contains('Account Deleted!', { matchCase: false });
     cy.get('.col-sm-9').should('be.visible')
         .contains('Your account has been permanently deleted! You can create new account to take advantage of member privileges to enhance your online shopping experience with us.');
+    cy.get('[data-qa="continue-button"]').click();
+    cy.url().should('include', '/')
 };
