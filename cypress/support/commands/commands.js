@@ -33,7 +33,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
         const newData = [...existingData, userData];
 
         // Write the updated data back to the fixture file
-        return cy.writeFile('cypress/fixtures/generated-test-data.json', newData).then(() => {
+        return cy.writeFile('cypress/common/fixtures/generated-test-data.json', newData).then(() => {
             // Return both the user data and new data as an object
             return { userData, newData };
         });
