@@ -1,5 +1,18 @@
+export const visitPage = (page) => {
+    cy.visit(`${Cypress.config('baseUrl')}/${page}`);
+};
+
+export const clickButton = (buttonSelector, expectedButtonTextTitle) => {
+    cy.get(buttonSelector).should('be.visible').and('contain', expectedButtonTextTitle)
+        .click()
+}
+
+export const verifyMessage = (messageContent, expectedMessage) => {
+    cy.get(messageContent).should('be.visible').and('contain', expectedMessage)
+}
+
 export const visitSignUpPage = () => {
-    cy.visit(`${Cypress.config('baseUrl')}/signup`);
+    visitPage('signup')
 };
 
 export const fillSignUpFormForValidData = (userData) => {
@@ -21,12 +34,13 @@ export const fillSignUpFormForInvalidData = () => {
 }
 
 export const submitSignUpForm = () => {
-    cy.get('[data-qa="signup-button"]').click();
+    clickButton('[data-qa="signup-button"]', 'Signup');
 };
 
+
 export const verifyAccountInfoPage = () => {
-    cy.get(':nth-child(1) > b').contains('Enter Account Information', { matchCase: false });
-    cy.get('form > .title > b').contains('Address Information', { matchCase: false });
+    verifyMessage(':nth-child(1) > b', 'Enter Account Information', { matchCase: false });
+    verifyMessage('form > .title > b', 'Address Information', { matchCase: false });
     cy.wait(3500); // Adjust the wait time if necessary
 };
 
@@ -84,27 +98,26 @@ export const addPersonalDetails = (userData) => {
         });
     });
 
-    cy.get('[data-qa="create-account"]').click();
+    clickButton('[data-qa="create-account"]', 'Create Account')
 };
 
 export const verifySuccessMessageForSignUp = () => {
     cy.url().should('include', '/account_created');
-    cy.get('b').contains('Account Created!', { matchCase: false });
-    cy.get('.col-sm-9').should('be.visible')
-        .contains('Congratulations! Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.');
-};
+    verifyMessage('b', 'Account Created!', { matchCase: false })
+    verifyMessage('.col-sm-9 > :nth-child(2)', 'Congratulations! Your new account has been successfully created!');
+    verifyMessage('.col-sm-9 > :nth-child(3)', 'You can now take advantage of member privileges to enhance your online shopping experience with us.');
+}
 
 export const verifyErrorMessageForSignUp = () => {
-    cy.get('.signup-form > form > p').should('be.visible')
-        .contains('Email Address already exist!');
+    verifyMessage('.signup-form > form > p', 'Email Address already exist!')
 };
 
 export const continueToDashboard = () => {
-    cy.get('[data-qa="continue-button"]').contains('Continue').click();
+    clickButton('[data-qa="continue-button"]', 'Continue')
 };
 
 export const visitLoginPage = () => {
-    cy.visit(`${Cypress.config('baseUrl')}/login`);
+    visitPage('login');
 };
 
 export const fillLoginFormForValidData = () => {
@@ -122,33 +135,38 @@ export const fillLoginFormForInvalidData = () => {
 }
 
 export const submitLogInForm = () => {
-    cy.get('[data-qa="login-button"]').click();
+    clickButton('[data-qa="login-button"]', 'Login')
 };
-export const verifySuccessMessageForLogin = () => {
-    cy.url().should('include', '/');
-    cy.get(':nth-child(10) > a').invoke('text').then((text) => {
-        const fullName = text.replace('Logged in as ', '').trim();
-        cy.wrap(fullName).as('userFullName');
-    });
 
-    cy.get('@userFullName').then((fullName) => {
+// Generic function to verify the "Logged in as" text
+const verifyLoggedInAs = (extractFullName) => {
+    cy.url().should('include', '/');
+    extractFullName().then((fullName) => {
         cy.get(':nth-child(10) > a').should('have.text', ' Logged in as ' + fullName);
     });
 };
 
-export const verifySuccessMessageForDashboard = () => {
-    cy.url().should('include', '/');
-    cy.getRandomEmailAndName().then(({ email, fullName }) => {
-        cy.wrap({ email, fullName }).as('userDetails');
-        cy.get('@userDetails').then(({ fullName }) => {
-            cy.get(':nth-child(10) > a').should('have.text', ' Logged in as ' + fullName);
+// Refactored function to verify success message for login
+export const verifySuccessMessageForLogin = () => {
+    verifyLoggedInAs(() => {
+        return cy.get(':nth-child(10) > a').invoke('text').then((text) => {
+            const fullName = text.replace('Logged in as ', '').trim();
+            return cy.wrap(fullName);
         });
     });
 };
 
+// Refactored function to verify success message for dashboard
+export const verifySuccessMessageForDashboard = () => {
+    verifyLoggedInAs(() => {
+        return cy.getRandomEmailAndName().then(({ fullName }) => {
+            return cy.wrap(fullName);
+        });
+    });
+};
 
 export const verifyErrorMessageForLogin = () => {
-    cy.get('.login-form > form > p').contains('Your email or password is incorrect!');
+    verifyMessage('.login-form > form > p', 'Your email or password is incorrect!')
 };
 
 export const verifyDashboardPage = (visitLoginPage, submitLogInForm) => {
@@ -165,13 +183,11 @@ export const verifyDashboardPage = (visitLoginPage, submitLogInForm) => {
 };
 
 export const verifyClickLogout = () => {
-    cy.get('.shop-menu > .nav > :nth-child(4) > a').should('be.visible')
-        .contains('Logout').click();
+    clickButton('.shop-menu > .nav > :nth-child(4) > a', 'Logout')
 };
 
 export const verifyClickDelete = () => {
-    cy.get('.shop-menu > .nav > :nth-child(5)').should('be.visible')
-        .contains('Delete Account').click();
+    clickButton('.shop-menu > .nav > :nth-child(5)', 'Delete')
 
     cy.get('@userDetails').then(({ email }) => {
         cy.log(`Logged out email: ${email}`);
@@ -182,12 +198,10 @@ export const verifyClickDelete = () => {
 
 export const verifySuccessMessageForAccountDeletion = (verifySuccessMessageForLogin) => {
     cy.url().should('include', '/delete_account');
-    cy.get('b').contains('Account Deleted!', { matchCase: false });
-    cy.get('.col-sm-9 > :nth-child(2)').should('be.visible')
-        .contains('Your account has been permanently deleted!')
-    cy.get('.col-sm-9 > :nth-child(3)').should('be.visible')
-        .contains('You can create new account to take advantage of member privileges to enhance your online shopping experience with us.')
-    cy.get('[data-qa="continue-button"]').click();
+    verifyMessage('b', 'Account Deleted!')
+    verifyMessage('.col-sm-9 > :nth-child(2)', 'Your account has been permanently deleted!')
+    verifyMessage('.col-sm-9 > :nth-child(3)', 'You can create new account to take advantage of member privileges to enhance your online shopping experience with us.')
+    clickButton('[data-qa="continue-button"]', 'Continue')
     cy.url().should('include', '/');
 };
 
