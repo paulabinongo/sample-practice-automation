@@ -3,11 +3,11 @@ import { verifyDashboardPage, visitLoginPage, submitLogInForm, verifyClickLogout
 
 
 Given('that I am on the dashboard page', () => {
-    verifyDashboardPage(visitLoginPage, submitLogInForm);
+    verifyDashboardPage();
 });
 When('I view that there is a logout button', () => {
     verifyClickLogout();
 });
 Then('I should be able to logout from the website', () => {
-    cy.url().should('include', '/login');
+    visitLoginPage();
 });

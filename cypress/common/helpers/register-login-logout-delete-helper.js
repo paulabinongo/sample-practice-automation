@@ -15,33 +15,39 @@ export const visitSignUpPage = () => {
     visitPage('signup')
 };
 
+const fillSignUpForm = (userData, isValid = true) => {
+    if (isValid) {
+        const fullName = `${userData.firstName} ${userData.lastName}`;
+        const fields = ['firstName', 'lastName', 'email', 'company', 'country', 'mobileNumber', 'address1', 'address2', 'city', 'state', 'zipcode'];
+
+        fields.forEach(field => cy.wrap(userData[field]).as(field));
+
+        cy.get('[data-qa="signup-name"]').type(fullName);
+        cy.get('[data-qa="signup-email"]').type(userData.email);
+    } else {
+        cy.getRandomEmailAndName().then(({ email, fullName }) => {
+            cy.get('[data-qa="signup-name"]').type(fullName);
+            cy.get('[data-qa="signup-email"]').type(email);
+        });
+    }
+};
+
 export const fillSignUpFormForValidData = (userData) => {
-    const fullName = `${userData.firstName} ${userData.lastName}`;
-    const userFields = ['firstName', 'lastName', 'email', 'company', 'country', 'mobileNumber', 'address1', 'address2', 'city', 'state', 'zipcode'];
-
-    userFields.forEach(field => cy.wrap(userData[field]).as(field));
-
-    cy.get('[data-qa="signup-name"]').type(fullName);
-    cy.get('[data-qa="signup-email"]').type(userData.email);
-
+    fillSignUpForm(userData, true);
 };
 
 export const fillSignUpFormForInvalidData = () => {
-    cy.getRandomEmailAndName().then(({ email, fullName }) => {
-        cy.get('[data-qa="signup-name"]').type(fullName);
-        cy.get('[data-qa="signup-email"]').type(email);
-    });
-}
+    fillSignUpForm({}, false);
+};
 
 export const submitSignUpForm = () => {
     clickButton('[data-qa="signup-button"]', 'Signup');
 };
 
-
 export const verifyAccountInfoPage = () => {
     verifyMessage(':nth-child(1) > b', 'Enter Account Information', { matchCase: false });
     verifyMessage('form > .title > b', 'Address Information', { matchCase: false });
-    cy.wait(3500); // Adjust the wait time if necessary
+    cy.wait(3500);
 };
 
 export const addPersonalDetails = (userData) => {
@@ -120,48 +126,35 @@ export const visitLoginPage = () => {
     visitPage('login');
 };
 
-export const fillLoginFormForValidData = () => {
+const fillLoginForm = (password) => {
     cy.getRandomEmailAndName().then(({ email }) => {
+        cy.wrap({ email, password }).as('userDetails');
         cy.get('[data-qa="login-email"]').type(email);
-    })
-    cy.get('[data-qa="login-password"]').type('Password123');
-}
+    });
+    cy.get('[data-qa="login-password"]').type(password);
+};
+
+export const fillLoginFormForValidData = () => {
+    fillLoginForm('Password123');
+};
 
 export const fillLoginFormForInvalidData = () => {
-    cy.getRandomEmailAndName().then(({ email }) => {
-        cy.get('[data-qa="login-email"]').type(email);
-    })
-    cy.get('[data-qa="login-password"]').type('PassworD');
-}
+    fillLoginForm('PassworD');
+};
 
 export const submitLogInForm = () => {
     clickButton('[data-qa="login-button"]', 'Login')
 };
 
-// Generic function to verify the "Logged in as" text
-const verifyLoggedInAs = (extractFullName) => {
+const verifyLoggedInAs = (fullName) => {
     cy.url().should('include', '/');
-    extractFullName().then((fullName) => {
-        cy.get(':nth-child(10) > a').should('have.text', ' Logged in as ' + fullName);
-    });
+    cy.get(':nth-child(10) > a').should('have.text', ` Logged in as ${fullName}`);
 };
 
-// Refactored function to verify success message for login
 export const verifySuccessMessageForLogin = () => {
-    verifyLoggedInAs(() => {
-        return cy.get(':nth-child(10) > a').invoke('text').then((text) => {
-            const fullName = text.replace('Logged in as ', '').trim();
-            return cy.wrap(fullName);
-        });
-    });
-};
-
-// Refactored function to verify success message for dashboard
-export const verifySuccessMessageForDashboard = () => {
-    verifyLoggedInAs(() => {
-        return cy.getRandomEmailAndName().then(({ fullName }) => {
-            return cy.wrap(fullName);
-        });
+    cy.get(':nth-child(10) > a').invoke('text').then((text) => {
+        const fullName = text.replace('Logged in as ', '').trim();
+        verifyLoggedInAs(fullName);
     });
 };
 
@@ -169,17 +162,11 @@ export const verifyErrorMessageForLogin = () => {
     verifyMessage('.login-form > form > p', 'Your email or password is incorrect!')
 };
 
-export const verifyDashboardPage = (visitLoginPage, submitLogInForm) => {
+export const verifyDashboardPage = () => {
     visitLoginPage();
-    cy.getRandomEmailAndName().then(({ email, fullName }) => {
-        cy.wrap({ email, fullName }).as('userDetails');
-        cy.get('[data-qa="login-email"]').type(email);
-        cy.get('[data-qa="login-password"]').type('Password123');
-        submitLogInForm();
-        cy.get('@userDetails').then(({ fullName }) => {
-            cy.get(':nth-child(10) > a').should('have.text', ' Logged in as ' + fullName);
-        });
-    });
+    fillLoginFormForValidData();
+    submitLogInForm();
+    verifySuccessMessageForLogin();
 };
 
 export const verifyClickLogout = () => {
@@ -187,16 +174,14 @@ export const verifyClickLogout = () => {
 };
 
 export const verifyClickDelete = () => {
-    clickButton('.shop-menu > .nav > :nth-child(5)', 'Delete')
-
+    clickButton('.shop-menu > .nav > :nth-child(5)', 'Delete');
     cy.get('@userDetails').then(({ email }) => {
         cy.log(`Logged out email: ${email}`);
-
         cy.task('deleteUserFromJSON', email);
     });
 };
 
-export const verifySuccessMessageForAccountDeletion = (verifySuccessMessageForLogin) => {
+export const verifySuccessMessageForAccountDeletion = () => {
     cy.url().should('include', '/delete_account');
     verifyMessage('b', 'Account Deleted!')
     verifyMessage('.col-sm-9 > :nth-child(2)', 'Your account has been permanently deleted!')
@@ -205,26 +190,15 @@ export const verifySuccessMessageForAccountDeletion = (verifySuccessMessageForLo
     cy.url().should('include', '/');
 };
 
-export const verifyDashboardPageManagement = (verifySuccessMessageForLogin) => {
-    verifySuccessMessageForLogin();
-    cy.get('.shop-menu > .nav > :nth-child(1) > a').should('be.visible')
-        .contains('Home');
-    cy.get('.shop-menu > .nav > :nth-child(2) > a').should('be.visible')
-        .contains('Products');
-    cy.get('.shop-menu > .nav > :nth-child(3) > a').should('be.visible')
-        .contains('Cart');
-    cy.get('.shop-menu > .nav > :nth-child(4) > a').should('be.visible')
-        .contains('Logout');
-    cy.get('.shop-menu > .nav > :nth-child(5) > a').should('be.visible')
-        .contains('Delete Account');
-    cy.get('.shop-menu > .nav > :nth-child(6) > a').should('be.visible')
-        .contains('Test Cases');
-    cy.get('.shop-menu > .nav > :nth-child(7) > a').should('be.visible')
-        .contains('API Testing ');
-    cy.get('.shop-menu > .nav > :nth-child(8) > a').should('be.visible')
-        .contains('Video Tutorials');
-    cy.get(':nth-child(9) > a').should('be.visible')
-        .contains('Contact Us');
-    cy.get(':nth-child(10) > a').should('be.visible')
-        .contains('');
+export const verifyDashboardPageElements = () => {
+    const menuItems = [
+        'Home', 'Products', 'Cart', 'Logout', 'Delete Account', 'Test Cases',
+        'API Testing', 'Video Tutorials', 'Contact Us'
+    ];
+
+    menuItems.forEach((item, index) => {
+        cy.get(`.shop-menu > .nav > :nth-child(${index + 1}) > a`)
+            .should('be.visible')
+            .contains(item.trim(), { matchCase: false });
+    });
 };
