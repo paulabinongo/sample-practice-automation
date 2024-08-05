@@ -7,7 +7,7 @@ import {
     addPersonalDetails,
     verifySuccessMessageForSignUp,
     continueToDashboard
-} from '../../../../common/helpers/register-login-logout-delete-helper';
+} from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 before(() => {
     cy.viewport(Cypress.config('viewportWidth'), Cypress.config('viewportHeight'));

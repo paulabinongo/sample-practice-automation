@@ -1,5 +1,5 @@
 import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { visitLoginPage, fillLoginFormForValidData, submitLogInForm, verifySuccessMessageForLogin } from '../../../../common/helpers/register-login-logout-delete-helper';
+import { visitLoginPage, fillLoginFormForValidData, submitLogInForm, verifySuccessMessageForLogin } from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 
 Given('that I am on the login page', () => {

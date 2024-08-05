@@ -4,7 +4,7 @@ import {
     fillLoginFormForInvalidData,
     submitLogInForm,
     verifyErrorMessageForLogin
-} from '../../../../common/helpers/register-login-logout-delete-helper';
+} from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 Given('that I am on the login page', () => {
     visitLoginPage();

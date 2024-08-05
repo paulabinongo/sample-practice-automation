@@ -1,5 +1,7 @@
+import 'cypress-file-upload';
 const faker = require('faker');
-const countryAddressMapping = require('../../common/fixtures/country-mobile-mapping.json'); // Adjust path as needed
+const countryAddressMapping = require('../../common/fixtures/country-mobile-mapping.json');
+const contactFormData = require('../../common/fixtures/contact-form-data-list.json')
 
 Cypress.Commands.add('generateDataAndSaveData', () => {
     return cy.readFile('cypress/common/fixtures/generated-test-data.json').then((existingData) => {
@@ -53,6 +55,22 @@ Cypress.Commands.add('getRandomEmailAndName', () => {
             };
         } else {
             throw new Error('No data found in JSON file');
+        }
+    });
+});
+
+Cypress.Commands.add('getSubjectAndMessage', () => {
+    return cy.readFile('cypress/common/fixtures/contact-form-data-list.json').then(data => {
+        // Ensure data is an array and has at least one item
+        if (Array.isArray(data) && data.length > 0) {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const selectedData = data[randomIndex];
+            return {
+                subject: selectedData.subject,
+                message: selectedData.message
+            };
+        } else {
+            throw new Error('No data available in the fixture file.');
         }
     });
 });

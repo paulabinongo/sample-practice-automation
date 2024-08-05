@@ -30,7 +30,7 @@ module.exports = defineConfig({
         supportFile: 'cypress/support/index.js',
         baseUrl: 'https://www.automationexercise.com',
         viewportHeight: 1000,
-        viewportWidth: 1080,
+        viewportWidth: 1010,
         watchForFileChanges: false,
         screenshotOnRunFailure: true,
         chromeWebSecurity: false,

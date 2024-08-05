@@ -1,5 +1,9 @@
 export const visitPage = (page) => {
-    cy.visit(`${Cypress.config('baseUrl')}/${page}`);
+    if (page.startsWith('http')) {
+        cy.visit(page);
+    } else {
+        cy.visit(`${Cypress.config('baseUrl')}/${page}`);
+    }
 };
 
 export const clickButton = (buttonSelector, expectedButtonTextTitle) => {
@@ -152,9 +156,14 @@ const verifyLoggedInAs = (fullName) => {
 };
 
 export const verifySuccessMessageForLogin = () => {
-    cy.get(':nth-child(10) > a').invoke('text').then((text) => {
-        const fullName = text.replace('Logged in as ', '').trim();
-        verifyLoggedInAs(fullName);
+    cy.get('@userDetails').then((userDetails) => {
+        const emailAddress = userDetails.email;
+
+        cy.get(':nth-child(10) > a').invoke('text').then((text) => {
+            const fullName = text.replace('Logged in as ', '').trim();
+            cy.wrap({ fullName, emailAddress }).as('loggedInUser');
+            verifyLoggedInAs(fullName);
+        });
     });
 };
 
@@ -201,4 +210,11 @@ export const verifyDashboardPageElements = () => {
             .should('be.visible')
             .contains(item.trim(), { matchCase: false });
     });
+};
+
+export const scrollUpAndDown = () => {
+    cy.scrollTo('bottom', { duration: 9000 });
+    cy.window().its('scrollY').should('be.greaterThan', 0);
+    cy.scrollTo('top', { duration: 9000 });
+    cy.window().its('scrollY').should('equal', 0);
 };
