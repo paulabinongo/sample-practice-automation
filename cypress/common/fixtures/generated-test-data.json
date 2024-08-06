@@ -1,0 +1,44 @@
+[
+  {
+    "firstName": "Columbus",
+    "lastName": "Lind",
+    "email": "Lula_Sporer54@yahoo.com",
+    "gender": "Mrs.",
+    "company": "Deckow - Legros",
+    "country": "Canada",
+    "mobileNumber": "+17109611504",
+    "address1": "974 Santos Light",
+    "address2": "Suite 252",
+    "city": "Augusta-Richmond County",
+    "state": "b",
+    "zipcode": "28886"
+  },
+  {
+    "firstName": "Bernadette",
+    "lastName": "Friesen",
+    "email": "Quentin_Goodwin98@hotmail.com",
+    "gender": "Mrs.",
+    "company": "Moen - Yundt",
+    "country": "United States",
+    "mobileNumber": "+15143387075",
+    "address1": "122 Adele Falls",
+    "address2": "Suite 261",
+    "city": "East Brandynmouth",
+    "state": "c",
+    "zipcode": "47261"
+  },
+  {
+    "firstName": "Al",
+    "lastName": "Robel",
+    "email": "Reymundo_Ullrich@hotmail.com",
+    "gender": "Mr.",
+    "company": "Murray - Thompson",
+    "country": "New Zealand",
+    "mobileNumber": "+64296577892",
+    "address1": "330 Schneider Point",
+    "address2": "Apt. 570",
+    "city": "Moreno Valley",
+    "state": "c",
+    "zipcode": "55331"
+  }
+]

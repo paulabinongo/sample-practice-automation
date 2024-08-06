@@ -1,10 +1,9 @@
 import 'cypress-file-upload';
 const faker = require('faker');
-const countryAddressMapping = require('../../common/fixtures/country-mobile-mapping.json');
-const contactFormData = require('../../common/fixtures/contact-form-data-list.json')
+const countryAddressMapping = require('../../fixtures/country-mobile-mapping.json');
 
 Cypress.Commands.add('generateDataAndSaveData', () => {
-    return cy.readFile('cypress/common/fixtures/generated-test-data.json').then((existingData) => {
+    return cy.readFile('cypress/fixtures/generated-test-data.json').then((existingData) => {
         // Select a random country from the mapping
         const country = faker.random.arrayElement(Object.keys(countryAddressMapping));
         const addressData = countryAddressMapping[country];
@@ -44,7 +43,7 @@ Cypress.Commands.add('generateDataAndSaveData', () => {
 
 
 Cypress.Commands.add('getRandomEmailAndName', () => {
-    return cy.readFile('cypress/common/fixtures/generated-test-data.json').then(data => {
+    return cy.readFile('cypress/fixtures/generated-test-data.json').then(data => {
         if (Array.isArray(data) && data.length > 0) {
             const randomIndex = Math.floor(Math.random() * data.length);
             const selectedData = data[randomIndex];
@@ -60,7 +59,7 @@ Cypress.Commands.add('getRandomEmailAndName', () => {
 });
 
 Cypress.Commands.add('getSubjectAndMessage', () => {
-    return cy.readFile('cypress/common/fixtures/contact-form-data-list.json').then(data => {
+    return cy.readFile('cypress/fixtures/contact-form-data-list.json').then(data => {
         // Ensure data is an array and has at least one item
         if (Array.isArray(data) && data.length > 0) {
             const randomIndex = Math.floor(Math.random() * data.length);

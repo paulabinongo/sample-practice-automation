@@ -1,4 +1,4 @@
-import { clickButton, verifyMessage, verifySuccessMessageForLogin } from '../helpers/register-login-logout-delete-dashboard-helper'
+import { clickButton, verifyMessage } from '../helpers/register-login-logout-delete-dashboard-helper'
 
 export const verifyContactUsPage = () => {
     clickButton(':nth-child(9) > a', 'Contact us')
@@ -30,3 +30,7 @@ export const fillContactFormWithLoggedInUser = () => {
         });
     })
 };
+
+export const uploadPhoto = (selector = ':nth-child(6) > .form-control', filePathToBeUploaded = 'toBeUploaded.png') => {
+    cy.get(selector).attachFile(filePathToBeUploaded);
+}
