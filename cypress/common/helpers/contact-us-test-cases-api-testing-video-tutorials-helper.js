@@ -33,4 +33,10 @@ export const fillContactFormWithLoggedInUser = () => {
 
 export const uploadPhoto = (selector = ':nth-child(6) > .form-control', filePathToBeUploaded = 'toBeUploaded.png') => {
     cy.get(selector).attachFile(filePathToBeUploaded);
+    clickButton('[data-qa="submit-button"]', 'Submit')
+};
+
+export const verifySuccessMessageForContactUsSubmission = () => {
+    verifyMessage('.status', 'Success! Your details have been submitted successfully.')
+    clickButton('#form-section > .btn', ' Home')
 }
