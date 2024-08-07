@@ -1,10 +1,17 @@
-import { clickButton, verifyMessage } from '../helpers/register-login-logout-delete-dashboard-helper'
+import { clickButton, verifyMessage } from './register-login-logout-delete-dashboard-helper'
 
-export const verifyContactUsPage = () => {
+export const verifyContactUsPageForGetInTouch = () => {
     clickButton(':nth-child(9) > a', 'Contact us')
     verifyMessage('.col-sm-12 > .title', 'Contact Us');
     verifyMessage('div.contact-form > :nth-child(1)', 'Note: Below contact form is for testing purpose.');
-    verifyMessage('div.contact-form > .title', 'Get In Touch');
+    verifyMessage('div.contact-form > .title', 'Get In Touch')
+};
+
+export const verifyContactUsPageForFeedbackForUs = () => {
+    clickButton(':nth-child(9) > a', 'Contact us')
+    verifyMessage('.col-sm-12 > .title', 'Contact Us');
+    verifyMessage('div.contact-form > :nth-child(1)', 'Note: Below contact form is for testing purpose.');
+    verifyMessage('.contact-info > .title', 'Feedback For Us');
 }
 
 export const viewFieldsWithPlaceholder = (fields) => {
@@ -39,4 +46,15 @@ export const uploadPhoto = (selector = ':nth-child(6) > .form-control', filePath
 export const verifySuccessMessageForContactUsSubmission = () => {
     verifyMessage('.status', 'Success! Your details have been submitted successfully.')
     clickButton('#form-section > .btn', ' Home')
+}
+export const viewFeedbackUsFeed = () => {
+    const feedbackMessages = [
+        { selector: 'address > :nth-child(1)', text: 'We really appreciate your response to our website.' },
+        { selector: 'address > :nth-child(3)', text: 'Kindly share your feedback with us at feedback@automationexercise.com.' },
+        { selector: 'address > :nth-child(5)', text: 'If you have any suggestion areas or improvements, do let us know. We will definitely work on it.' },
+        { selector: 'address > :nth-child(7)', text: 'Thank you' },
+    ]
+    feedbackMessages.forEach(({ selector, text }) => {
+        verifyMessage(selector, text)
+    })
 }
