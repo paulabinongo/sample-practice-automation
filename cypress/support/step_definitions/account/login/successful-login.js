@@ -14,6 +14,6 @@ And('submit the login form', () => {
     submitLogInForm();
 });
 
-Then('I should view the Success Message for login', () => {
+Then('I should view the success message for login', () => {
     verifySuccessMessageForLogin();
 });

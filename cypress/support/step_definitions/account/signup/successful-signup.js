@@ -28,20 +28,20 @@ And('submit the signup form', () => {
     submitSignUpForm();
 });
 
-And('view the Account Information and Address Information sections', () => {
+And('view the account information and address information sections', () => {
     verifyAccountInfoPage();
 });
 
-And('add my Personal Details on each section', () => {
+And('add my personal details on each section', () => {
     cy.get('@userData').then(({ userData }) => {
         addPersonalDetails(userData);
     });
 });
 
-Then('I should view the Success Message for signup', () => {
+Then('I should view the success message for signup', () => {
     verifySuccessMessageForSignUp();
 });
 
-And('be redirected to the Dashboard page', () => {
+And('be redirected to the dashboard page', () => {
     continueToDashboard();
 });

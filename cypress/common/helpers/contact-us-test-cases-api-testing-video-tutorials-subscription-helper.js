@@ -14,8 +14,14 @@ export const verifyContactUsPageForFeedbackForUs = () => {
     verifyMessage('.contact-info > .title', 'Feedback For Us');
 }
 
-export const viewFieldsWithPlaceholder = (fields) => {
-    fields.forEach(({ fieldName, placeholder }) => {
+export const viewFieldsWithPlaceholder = () => {
+    const fieldsWithPlaceholder = [
+        { fieldName: 'name', placeholder: 'Name' },
+        { fieldName: 'email', placeholder: 'Email' },
+        { fieldName: 'subject', placeholder: 'Subject' },
+        { fieldName: 'message', placeholder: 'Your Message Here' }
+    ]
+    fieldsWithPlaceholder.forEach(({ fieldName, placeholder }) => {
         cy.get(`[data-qa=${fieldName}]`).should('be.visible')
             .invoke('attr', 'placeholder')
             .should('equal', placeholder)

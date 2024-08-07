@@ -15,6 +15,6 @@ When('I fill out the login form with incorrect credentials', () => {
 Then('submit the login Form', () => {
     submitLogInForm();
 });
-And('I should view the Error Message for login', () => {
+And('I should view the error message for login', () => {
     verifyErrorMessageForLogin();
 })

@@ -5,7 +5,7 @@ Given('that I log in to the website with the correct and existing credentials', 
     verifyDashboardPage();
 });
 
-When('I click the Contact Us page link for the Feedback For Us section', () => {
+When('I click the contact us page link for the feedback for us section', () => {
     verifyContactUsPageForFeedbackForUs();
 });
 
