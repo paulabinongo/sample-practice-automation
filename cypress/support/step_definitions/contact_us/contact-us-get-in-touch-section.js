@@ -5,7 +5,7 @@ Given('that I log in to the website with the correct and existing credentials', 
     verifyDashboardPage();
 });
 
-When('I click the contact us page link for the get in touch section', () => {
+When('I click the contact us button for the get in touch section', () => {
     verifyContactUsPageForGetInTouch();
     viewFieldsWithPlaceholder();
 });
@@ -14,6 +14,6 @@ And('fill out the contact us form', () => {
     fillContactFormWithLoggedInUser();
     uploadPhoto();
 })
-Then('I should be able to redirect to the dashboard page', () => {
+Then('I should be able to view the get in touch section', () => {
     verifySuccessMessageForContactUsSubmission();
 })

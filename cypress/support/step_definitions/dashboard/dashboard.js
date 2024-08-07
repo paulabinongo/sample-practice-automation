@@ -5,11 +5,10 @@ import { verifyDashboardPage, verifyDashboardPageElements, visitPage, scrollUpAn
 
 Given('that I log in to the website with the correct and existing credentials', () => {
     verifyDashboardPage();
-});
-When('I view that I am already on the dashboard page', () => {
     visitPage('');
 });
-And('view the navigation buttons', () => {
+
+When('I view the navigation buttons', () => {
     verifyDashboardPageElements();
 });
 

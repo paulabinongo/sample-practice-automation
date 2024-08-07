@@ -12,9 +12,9 @@ Given('that I am on the login page', () => {
 When('I fill out the login form with incorrect credentials', () => {
     fillLoginFormForInvalidData();
 });
-Then('submit the login Form', () => {
+Then('submit the login form', () => {
     submitLogInForm();
 });
-And('I should view the error message for login', () => {
+And('I should be able to view the error message for login', () => {
     verifyErrorMessageForLogin();
 })

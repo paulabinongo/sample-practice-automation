@@ -4,9 +4,9 @@ import { verifyDashboardPage, verifyClickDelete, verifySuccessMessageForAccountD
 Given('that I log in to the website with the correct and existing credentials', () => {
     verifyDashboardPage();
 });
-When('I view that there is a delete button', () => {
+When('I click the delete button', () => {
     verifyClickDelete();
 });
-Then('I should be able to delete the created or logged in account', () => {
+Then('I should be able to delete the created or logged in account from the website', () => {
     verifySuccessMessageForAccountDeletion();
 });

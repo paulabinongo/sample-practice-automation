@@ -38,7 +38,7 @@ And('add my personal details on each section', () => {
     });
 });
 
-Then('I should view the success message for signup', () => {
+Then('I should be able to view the success message for signup', () => {
     verifySuccessMessageForSignUp();
 });
 

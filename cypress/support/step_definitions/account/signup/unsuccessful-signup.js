@@ -18,6 +18,6 @@ And('submit the signup form', () => {
     submitSignUpForm();
 });
 
-Then('I should view the error message for signup', () => {
+Then('I should be able to view the error message for signup', () => {
     verifyErrorMessageForSignUp();
 });
