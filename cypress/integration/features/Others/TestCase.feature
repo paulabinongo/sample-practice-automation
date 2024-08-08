@@ -1,7 +1,17 @@
 Feature: Test Case Management
 
-Scenario: Navigate the Contact Us Page - Get In Touch section
+# Scenario: View the List of Test Cases
+#  Given that I log in to the website with the correct and existing credentials
+#  When I click the test cases button
+#  Then I should be able to view the list of test cases
+
+# Scenario: View the Detailed Test Steps of a certain Test Case
+#  Given that I log in to the website with the correct and existing credentials
+#  When I click the test cases button
+#  Then I should be able to view the list of test cases
+#  And be able to view the detailed test steps of the selected test case
+
+Scenario: Give a Feedback for Test Case Page
  Given that I log in to the website with the correct and existing credentials
- When I click the Contact Us page link for the Get In Touch section
- And fill out the contact us form
- Then I should be able to redirect to the dashboard page
+ When I click the test cases button
+ Then I should be able to give a feedback for test case page
