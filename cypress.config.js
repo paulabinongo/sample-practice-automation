@@ -11,7 +11,7 @@ module.exports = defineConfig({
             // Task for deleting a user from the JSON file
             on('task', {
                 deleteUserFromJSON(email) {
-                    const filePath = path.join(__dirname, 'cypress', 'common', 'fixtures', 'generated-test-data.json');
+                    const filePath = path.join(__dirname, 'cypress', 'fixtures', 'generated-test-data.json');
                     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
                     // Filter out the user with the specified email
@@ -30,7 +30,7 @@ module.exports = defineConfig({
         supportFile: 'cypress/support/index.js',
         baseUrl: 'https://www.automationexercise.com',
         viewportHeight: 1000,
-        viewportWidth: 1080,
+        viewportWidth: 1010,
         watchForFileChanges: false,
         screenshotOnRunFailure: true,
         chromeWebSecurity: false,

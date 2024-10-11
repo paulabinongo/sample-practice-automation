@@ -4,7 +4,7 @@ import {
     fillLoginFormForInvalidData,
     submitLogInForm,
     verifyErrorMessageForLogin
-} from '../../../../common/helpers/register-login-logout-delete-helper';
+} from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 Given('that I am on the login page', () => {
     visitLoginPage();
@@ -12,9 +12,9 @@ Given('that I am on the login page', () => {
 When('I fill out the login form with incorrect credentials', () => {
     fillLoginFormForInvalidData();
 });
-Then('submit the login Form', () => {
+Then('submit the login form', () => {
     submitLogInForm();
 });
-And('I should view the Error Message for login', () => {
+And('I should be able to view the error message for login', () => {
     verifyErrorMessageForLogin();
 })

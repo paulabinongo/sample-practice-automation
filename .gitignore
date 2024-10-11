@@ -1,0 +1,6 @@
+.gitignore
+node_modules/
+cypress/fixtures/*.json
+cypress/download
+package.json
+package-lock.json

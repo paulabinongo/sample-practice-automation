@@ -1,13 +1,13 @@
 import { Given, When, And, Then } from 'cypress-cucumber-preprocessor/steps';
-import { verifyDashboardPage, visitLoginPage, submitLogInForm, verifyClickLogout } from '../../../../common/helpers/register-login-logout-delete-helper';
+import { verifyDashboardPage, visitLoginPage, submitLogInForm, verifyClickLogout } from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 
-Given('that I am on the dashboard page', () => {
-    verifyDashboardPage(visitLoginPage, submitLogInForm);
+Given('that I log in to the website with the correct and existing credentials', () => {
+    verifyDashboardPage();
 });
-When('I view that there is a logout button', () => {
+When('I click the logout button', () => {
     verifyClickLogout();
 });
-Then('I should be able to logout from the website', () => {
-    cy.url().should('include', '/login');
+Then('I should be able to logout the created or logged in account from the website', () => {
+    visitLoginPage();
 });

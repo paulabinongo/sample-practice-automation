@@ -1,8 +1,28 @@
 // cypress/integration/step_definitions/dashboardSteps.js
 
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
-import { verifyDashboardPage, visitLoginPage, submitLogInForm } from '../../../common/helpers/register-login-logout-delete-helper';
+import { verifyDashboardPage, verifyDashboardPageElements, visitPage, scrollUpAndDown, verifyClickLogout } from '../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
-Given('that I login to the website with the correct and existing credentials', () => {
-    verifyDashboardPage(visitLoginPage, visitLoginPage, submitLogInForm);
+Given('that I log in to the website with the correct and existing credentials', () => {
+    verifyDashboardPage();
+    visitPage('');
+});
+
+When('I view the navigation buttons', () => {
+    verifyDashboardPageElements();
+});
+
+Then('I should be able to navigate the pages from the dashboard page', () => {
+    scrollUpAndDown();
+    const pages = [
+        '',
+        'products',
+        'view_cart',
+        'test_cases',
+        'api_list',
+        'https://www.youtube.com/c/AutomationExercise',
+        'contact_us',
+        ''
+    ];
+    pages.forEach(page => visitPage(page));
 });

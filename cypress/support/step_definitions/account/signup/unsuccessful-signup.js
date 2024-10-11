@@ -4,7 +4,7 @@ import {
     fillSignUpFormForInvalidData,
     submitSignUpForm,
     verifyErrorMessageForSignUp
-} from '../../../../common/helpers/register-login-logout-delete-helper';
+} from '../../../../common/helpers/register-login-logout-delete-dashboard-helper';
 
 Given('that I am on the signup page', () => {
     visitSignUpPage();
@@ -18,6 +18,6 @@ And('submit the signup form', () => {
     submitSignUpForm();
 });
 
-Then('I should view the Error Message for signup', () => {
+Then('I should be able to view the error message for signup', () => {
     verifyErrorMessageForSignUp();
 });
